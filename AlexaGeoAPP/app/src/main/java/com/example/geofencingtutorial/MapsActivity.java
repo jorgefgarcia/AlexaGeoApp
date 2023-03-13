@@ -35,7 +35,7 @@ import com.example.geofencingtutorial.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener{
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -88,20 +88,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         initialPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
 
-        //establecemos las geofences pulsando en el mapa
-        mMap.setOnMapLongClickListener(this);
+        //Añadimos la geofence al mapa
+        tryAddingGeofence(initialPosition);
 
-        //establecemos la geofence con el botón
-        /*findViewById(R.id.SetGeofenceButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                @SuppressLint("MissingPermission")
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                LatLng latlng = new LatLng(location.getLatitude(), location.getLatitude());
-                tryAddingGeofence(latlng);
-            }
-        });*/
     }
 
     private void onCheckGPS(){
@@ -174,23 +163,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    //Añadimos el circulo pulsando en el mapa mirar de coger una latitud y longitud del usuario
-    @Override
-    public void onMapLongClick(@NonNull LatLng latlng) {
-        if(Build.VERSION.SDK_INT >= 29){
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                tryAddingGeofence(latlng);
-            }else{
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)){
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_ACCESS_REQUEST_CODE);
-                } else {
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_ACCESS_REQUEST_CODE);
-                }
-            }
-        }else{
-            tryAddingGeofence(latlng);
-        }
-    }
 
     private void tryAddingGeofence(LatLng latlng){
         mMap.clear();
