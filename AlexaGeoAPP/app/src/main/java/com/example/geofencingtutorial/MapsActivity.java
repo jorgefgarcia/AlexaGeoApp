@@ -6,15 +6,20 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -30,7 +35,7 @@ import com.example.geofencingtutorial.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener{
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -39,21 +44,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //GEOFENCE HARDCODE MIRAR FORMA DE OBTENER RADIO E ID
     private float GEOFENCE_RADIUS = 100;
     private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
-    private final int  FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
+    private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
     private final int BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002;
     private static final String TAG = "MapsActivity";
     private SendToDatabase sendToDatabase;
-
-
-
-
+    private LatLng initialPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_maps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -64,8 +65,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geofenceHelper = new GeofenceHelper(this);
         sendToDatabase = new SendToDatabase(this);
 
-        //establecemos un false en la BD al iniciar la APP
-        sendToDatabase.addItemDBWithoutNotification();
+
+        //establecemos un false en la BD al iniciar la APP. Lo comentamos para probar cosas
+        //sendToDatabase.addItemDBWithoutNotification();
 
         //añadimos el listener para el GPSCheck
         onCheckGPS();
@@ -76,14 +78,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Podemos añadir aqui la latitud y longitud del Amazon Echo y mover la cámara ahí
-        LatLng eiffel = new LatLng(48.8589, 2.29365);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eiffel, 16));
 
         //Conseguimos la ubicación del usuario y pedimos permisos
         enableUserLocation();
-        //establecemos las geofences
+
+        //Cogemos el bundle
+        Bundle bundle = getIntent().getExtras();
+        Log.d(TAG, "onCreate: " + bundle.getDouble("latitude") + " " + bundle.getDouble("longitude"));
+        initialPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
+
+        //establecemos las geofences pulsando en el mapa
         mMap.setOnMapLongClickListener(this);
+
+        //establecemos la geofence con el botón
+        /*findViewById(R.id.SetGeofenceButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                @SuppressLint("MissingPermission")
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                LatLng latlng = new LatLng(location.getLatitude(), location.getLatitude());
+                tryAddingGeofence(latlng);
+            }
+        });*/
     }
 
     private void onCheckGPS(){

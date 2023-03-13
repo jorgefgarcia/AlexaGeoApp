@@ -7,8 +7,10 @@ import android.location.LocationManager;
 
 import com.google.android.gms.location.Geofence;
 
+//Esta clase es un listener que detecta si el usuario desactiva el GPS para enviar un false a la
+//base de datos.
 public class GPSCheck extends BroadcastReceiver {
-    //Listener para detectar cuando el usuario desactiva el GPS.
+
     public interface LocationCallBack {
         void turnedOn();
         void turnedOff();
