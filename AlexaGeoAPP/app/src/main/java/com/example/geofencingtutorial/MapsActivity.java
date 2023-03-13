@@ -41,8 +41,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
-    //GEOFENCE HARDCODE MIRAR FORMA DE OBTENER RADIO E ID
-    private float GEOFENCE_RADIUS = 100;
+
+    //Se coge de la anterior vista el valor del radio
+    private float geofenceRadius;
     private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
     private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
     private final int BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002;
@@ -84,7 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Cogemos el bundle
         Bundle bundle = getIntent().getExtras();
-        Log.d(TAG, "onCreate: " + bundle.getDouble("latitude") + " " + bundle.getDouble("longitude"));
+
+        geofenceRadius = bundle.getFloat("radius");
         initialPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
 
@@ -167,8 +169,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void tryAddingGeofence(LatLng latlng){
         mMap.clear();
         addMarker(latlng);
-        addCircle(latlng, GEOFENCE_RADIUS);
-        addGeofence(latlng, GEOFENCE_RADIUS);
+        addCircle(latlng, geofenceRadius);
+        addGeofence(latlng, geofenceRadius);
     }
 
     private void addGeofence(LatLng latLng, float radius) {
