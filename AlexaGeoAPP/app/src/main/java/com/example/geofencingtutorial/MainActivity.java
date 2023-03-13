@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setRadius(Float.parseFloat(radiusNumber.getText().toString()));
-                Toast.makeText(MainActivity.this, "Radius added to geofence", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Radius" + getRadius()+ " added to geofence", Toast.LENGTH_SHORT).show();
             }
         });
 
