@@ -13,23 +13,20 @@ import androidx.navigation.Navigation;
 
 import com.example.geofencingtutorial.R;
 
-public class FragmentoInicio extends Fragment {
-
-
+public class FragmentoPrimario extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragmento_inicio, container, false);
+        View view = inflater.inflate(R.layout.fragmento_primario, container, false);
 
-        Button next = view.findViewById(R.id.buttonNext);
+        Button next = view.findViewById(R.id.button);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragmentoInicio_to_fragmentoPrimario);
+                Navigation.findNavController(view).navigate(R.id.action_fragmentoPrimario_to_fragmentoCogiendoUbicacion);
             }
         });
         return view.getRootView();
     }
-
 }

@@ -3,26 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/fragmentoInicio">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.geofencingtutorial.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
+        android:id="@+id/fragmentoInicio"
+        android:name="com.example.geofencingtutorial.fragments.FragmentoInicio"
+        android:label="fragmento_inicio"
+        tools:layout="@layout/fragmento_inicio" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_fragmentoInicio_to_fragmentoPrimario"
+            app:destination="@id/fragmentoPrimario" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.geofencingtutorial.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-
+        android:id="@+id/fragmentoPrimario"
+        android:name="com.example.geofencingtutorial.fragments.FragmentoPrimario"
+        android:label="fragmento_primario"
+        tools:layout="@layout/fragmento_primario" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_fragmentoPrimario_to_fragmentoCogiendoUbicacion"
+            app:destination="@id/fragmentoCogiendoUbicacion" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentoCogiendoUbicacion"
+        android:name="com.example.geofencingtutorial.fragments.FragmentoCogiendoUbicacion"
+        android:label="FragmentoCogiendoUbicacion" />
 </navigation>

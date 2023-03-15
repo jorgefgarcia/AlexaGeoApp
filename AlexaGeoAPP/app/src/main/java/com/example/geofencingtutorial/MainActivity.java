@@ -1,21 +1,11 @@
 package com.example.geofencingtutorial;
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Toast;
-import androidx.core.app.ActivityCompat;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +14,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        /*Intent mainClassIntent = new Intent(this, MapsActivity.class);
+
+    /*Intent mainClassIntent = new Intent(this, MapsActivity.class);
         Bundle bundle = new Bundle();
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -52,6 +44,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-
-    }
 }

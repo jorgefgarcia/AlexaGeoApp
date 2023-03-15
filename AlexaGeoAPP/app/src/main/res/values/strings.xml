@@ -12,4 +12,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="mensaje_inicio">Antes de empezar necesito saber algunas cosas sobre tí para establecer la seguridad</string>
+    <string name="mensaje_primario">Necesitamos permisos de ubicación del dispositivo para configurarlo todo correctamente.Pero antes, acercate al altavoz inteligente de Alexa, cuando estés cerca de él dale a continuar.</string>
 </resources>
