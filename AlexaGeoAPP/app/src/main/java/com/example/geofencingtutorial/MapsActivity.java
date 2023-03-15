@@ -4,22 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -31,18 +25,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.geofencingtutorial.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
-
-    //Se coge de la anterior vista el valor del radio
     private float geofenceRadius;
     private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
     private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
@@ -66,7 +57,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geofenceHelper = new GeofenceHelper(this);
         sendToDatabase = new SendToDatabase(this);
 
-
         //establecemos un false en la BD al iniciar la APP. Lo comentamos para probar cosas
         //sendToDatabase.addItemDBWithoutNotification();
 
@@ -78,7 +68,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
 
         //Conseguimos la ubicación del usuario y pedimos permisos
         enableUserLocation();

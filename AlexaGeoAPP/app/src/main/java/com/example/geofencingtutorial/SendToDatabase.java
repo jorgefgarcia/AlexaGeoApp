@@ -20,12 +20,12 @@ public class SendToDatabase{
         NotificationHelper notificationHelper = new NotificationHelper(context);
         switch (transitionTypes) {
             case Geofence.GEOFENCE_TRANSITION_ENTER:
-                notificationHelper.sendHighPriorityNotification("Entrando en la geofence", "", MapsActivity.class);
+                notificationHelper.sendHighPriorityNotification("Bienvenido", "", MapsActivity.class);
                 serviceIntent.putExtra("estado",true);
                 context.startService(serviceIntent);
                 break;
             case Geofence.GEOFENCE_TRANSITION_DWELL:
-                notificationHelper.sendHighPriorityNotification("Dentro de la geofence", "", MapsActivity.class);
+                //notificationHelper.sendHighPriorityNotification("Dentro de la geofence", "", MapsActivity.class);
                 break;
             case Geofence.GEOFENCE_TRANSITION_EXIT:
                 notificationHelper.sendHighPriorityNotification("Saliendo de la geofence", "", MapsActivity.class);
