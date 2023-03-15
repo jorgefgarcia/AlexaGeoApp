@@ -34,7 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
-    private float geofenceRadius;
+    private float geofenceRadius = 100;
     private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
     private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
     private final int BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002;
@@ -75,7 +75,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Cogemos el bundle
         Bundle bundle = getIntent().getExtras();
 
-        geofenceRadius = bundle.getFloat("radius");
         initialPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
 
