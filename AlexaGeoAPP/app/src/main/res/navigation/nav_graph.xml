@@ -25,5 +25,13 @@
     <fragment
         android:id="@+id/fragmentoCogiendoUbicacion"
         android:name="com.example.geofencingtutorial.fragments.FragmentoCogiendoUbicacion"
-        android:label="FragmentoCogiendoUbicacion" />
+        android:label="FragmentoCogiendoUbicacion" >
+        <action
+            android:id="@+id/action_fragmentoCogiendoUbicacion_to_fragmentoMostrarUbicacion"
+            app:destination="@id/fragmentoMostrarUbicacion" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentoMostrarUbicacion"
+        android:name="com.example.geofencingtutorial.fragments.FragmentoMostrarUbicacion"
+        android:label="FragmentoMostrarUbicacion" />
 </navigation>
