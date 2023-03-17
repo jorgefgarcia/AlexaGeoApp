@@ -49,7 +49,6 @@ public class FragmentoCogiendoUbicacion extends Fragment {
         ubicacionText = view.findViewById(R.id.ubicacion);
 
         //Desactivamos el botón, conseguimos la posición del usuario y activamos el botón
-        next.setEnabled(false);
         getCurrentLocation();
         waitProgress(next,progressBar, tickImage, ubicacionText);
         next.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +94,7 @@ public class FragmentoCogiendoUbicacion extends Fragment {
                 textView.setText("Ubicación encontrada");
                 progressBar.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
-                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
             }
         }, 5000);
     }
