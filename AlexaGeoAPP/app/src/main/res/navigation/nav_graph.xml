@@ -33,5 +33,17 @@
     <fragment
         android:id="@+id/fragmentoMostrarUbicacion"
         android:name="com.example.geofencingtutorial.fragments.FragmentoMostrarUbicacion"
-        android:label="FragmentoMostrarUbicacion" />
+        android:label="FragmentoMostrarUbicacion" >
+        <action
+            android:id="@+id/action_fragmentoMostrarUbicacion_to_fragmentoPrimario"
+            app:destination="@id/fragmentoPrimario" />
+        <action
+            android:id="@+id/action_fragmentoMostrarUbicacion_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.example.geofencingtutorial.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
 </navigation>
