@@ -9,9 +9,11 @@
         android:id="@+id/ubicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recuperando ubicación"
-        android:textSize="22dp"
-        android:textColor="@color/black"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/mensaje_inicio_cogiendo_ubicacion"
+        android:textAlignment="center"
+        android:textColor="@color/purple_700"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,26 +35,25 @@
 
     <Button
         android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:text="@string/mensaje_boton_cogiendo_ubicacion"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:layout_constraintVertical_bias="0.948" />
+        app:layout_constraintVertical_bias="0.954" />
 
     <ImageView
         android:id="@+id/imageViewTick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="296dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.361"
-        app:srcCompat="@android:drawable/checkbox_on_background" />
+        app:layout_constraintVertical_bias="0.498"
+        app:srcCompat="@drawable/done" />
 </androidx.constraintlayout.widget.ConstraintLayout>
