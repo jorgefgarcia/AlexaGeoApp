@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.122" />
 
+    <!-- <a href="https://storyset.com/technology">Technology illustrations by Storyset</a> -->
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/VoiceControlGif"
         android:layout_width="215dp"
