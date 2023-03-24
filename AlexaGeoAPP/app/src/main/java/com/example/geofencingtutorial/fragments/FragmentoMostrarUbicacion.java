@@ -102,12 +102,19 @@ public class FragmentoMostrarUbicacion extends Fragment {
             public void run() {
                 try {
                     direcciones = geocoder.getFromLocation(latitude, longitude, 1);
-                    textView.setText(direcciones.get(0).getAddressLine(0));
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText(direcciones.get(0).getAddressLine(0));
+                        }
+                    });
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         };
         thread.start();
+        thread.interrupt();
     }
 }
