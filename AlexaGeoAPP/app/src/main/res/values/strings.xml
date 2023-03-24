@@ -13,7 +13,7 @@
 
     <!-- Fragmento de inicio -->
     <string name="mensaje_bienvenida">Bienvenido a GeoApp</string>
-    <string name="mensaje_inicio">Nos aseguraremos que las peticiones que realices a la Alexa Skill sean más seguras.</string>
+    <string name="mensaje_inicio">Nos aseguraremos que las peticiones que realices sean más seguras.</string>
     <string name="mensaje_boton_inicio">¡Vale, comencemos!</string>
 
 
@@ -28,5 +28,6 @@
 
     <!-- Fragmento mostrar ubicación -->
     <string name="mensaje_inicio_mostrar_ubicacion" > Hemos encontrado esta ubicación </string>
-    <string name="mensaje_dirección_encontranda">La dirección encontrada es la siguiente. ¿Es correcta?</string>
+    <string name="mensaje_dirección_encontranda">La dirección encontrada es la siguiente: </string>
+    <string name="mensaje_correcto_mostrar_ubicacion"> ¿Es correcta?</string>
 </resources>

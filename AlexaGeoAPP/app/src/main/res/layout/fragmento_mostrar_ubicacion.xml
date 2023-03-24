@@ -21,20 +21,45 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.082" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="381dp"
-        android:layout_height="32dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/mensaje_dirección_encontranda"
-        android:textAlignment="center"
-        android:textColor="@color/purple_700"
+
+
+    <LinearLayout
+        android:layout_width="385dp"
+        android:layout_height="57dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.178" />
+        app:layout_constraintVertical_bias="0.186">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/mensaje_dirección_encontranda"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700" />
+
+        <TextView
+            android:id="@+id/direccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Found"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/CorrectoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/mensaje_correcto_mostrar_ubicacion"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700" />
+    </LinearLayout>
 
     <!-- <a href="https://storyset.com/question">Question illustrations by Storyset</a> -->
     <pl.droidsonroids.gif.GifImageView
@@ -60,20 +85,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.973" />
-
-    <TextView
-        android:id="@+id/direccion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
 
     <Button
         android:id="@+id/buttonNo"
