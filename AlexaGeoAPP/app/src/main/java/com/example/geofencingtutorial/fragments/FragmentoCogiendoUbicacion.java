@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
 import android.os.Bundle;
@@ -32,12 +33,14 @@ import com.google.android.gms.location.LocationServices;
 
 import org.w3c.dom.Text;
 
-public class FragmentoCogiendoUbicacion extends Fragment {
+public class FragmentoCogiendoUbicacion extends Fragment implements LocationListener {
 
     private static final String TAG = "FragmentoCogiendoUbicac";
     private ProgressBar progressBar;
     private ImageView tickImage;
     private TextView ubicacionText;
+    private LocationManager lm;
+    private Bundle bundle;
 
     @Nullable
     @Override
@@ -61,9 +64,8 @@ public class FragmentoCogiendoUbicacion extends Fragment {
     }
 
     private void getCurrentLocation(){
-        Bundle bundle = new Bundle();
-
-        LocationManager lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        bundle = new Bundle();
+        lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -76,13 +78,25 @@ public class FragmentoCogiendoUbicacion extends Fragment {
         }
         //Conseguimos posición actual
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null){
+            //Añadimos los datos al bundle
+            bundle.putDouble("latitude", location.getLatitude());
+            bundle.putDouble("longitude", location.getLongitude());
+            //Añadimos la información en el fragmentManager
+            getParentFragmentManager().setFragmentResult("bundle",bundle);
+        } else{
+            lm.requestLocationUpdates(String.valueOf(LocationManager.GPS_PROVIDER), 1000, 0, this);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        lm.removeUpdates(this);
         //Añadimos los datos al bundle
         bundle.putDouble("latitude", location.getLatitude());
         bundle.putDouble("longitude", location.getLongitude());
         //Añadimos la información en el fragmentManager
         getParentFragmentManager().setFragmentResult("bundle",bundle);
-
-
     }
 
 
