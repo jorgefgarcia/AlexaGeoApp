@@ -29,11 +29,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.geofencingtutorial.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import org.w3c.dom.Text;
 
-public class FragmentoCogiendoUbicacion extends Fragment implements LocationListener {
+public class FragmentoCogiendoUbicacion extends Fragment implements LocationListener{
 
     private static final String TAG = "FragmentoCogiendoUbicac";
     private ProgressBar progressBar;
@@ -52,7 +56,7 @@ public class FragmentoCogiendoUbicacion extends Fragment implements LocationList
         ubicacionText = view.findViewById(R.id.ubicacion);
 
         //Desactivamos el botón, conseguimos la posición del usuario y activamos el botón
-        getCurrentLocation();
+        localizacionActual();
         waitProgress(next,progressBar, tickImage, ubicacionText);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +67,10 @@ public class FragmentoCogiendoUbicacion extends Fragment implements LocationList
         return view;
     }
 
-    private void getCurrentLocation(){
+    private void localizacionActual(){
         bundle = new Bundle();
-        lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        lm = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -76,17 +80,8 @@ public class FragmentoCogiendoUbicacion extends Fragment implements LocationList
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        //Conseguimos posición actual
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null){
-            //Añadimos los datos al bundle
-            bundle.putDouble("latitude", location.getLatitude());
-            bundle.putDouble("longitude", location.getLongitude());
-            //Añadimos la información en el fragmentManager
-            getParentFragmentManager().setFragmentResult("bundle",bundle);
-        } else{
-            lm.requestLocationUpdates(String.valueOf(LocationManager.GPS_PROVIDER), 1000, 0, this);
-        }
+
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
     }
 
     @Override
@@ -95,6 +90,7 @@ public class FragmentoCogiendoUbicacion extends Fragment implements LocationList
         //Añadimos los datos al bundle
         bundle.putDouble("latitude", location.getLatitude());
         bundle.putDouble("longitude", location.getLongitude());
+        Log.d(TAG, "getCurrentLocation: " + location.getLatitude() + " " + location.getLongitude());
         //Añadimos la información en el fragmentManager
         getParentFragmentManager().setFragmentResult("bundle",bundle);
     }

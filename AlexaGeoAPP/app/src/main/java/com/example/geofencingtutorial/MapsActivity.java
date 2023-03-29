@@ -84,7 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void onCheckGPS(){
-        registerReceiver(new GPSCheck(new GPSCheck.LocationCallBack() {
+        getApplicationContext().registerReceiver(new GPSCheck(new GPSCheck.LocationCallBack() {
             @Override
             public void turnedOn() {
                 Log.e("GpsReceiver","is turned on");
