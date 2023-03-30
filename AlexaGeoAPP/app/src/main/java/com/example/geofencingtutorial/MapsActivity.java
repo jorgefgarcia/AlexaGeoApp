@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import android.Manifest;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -14,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -27,7 +29,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -41,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = "MapsActivity";
     private SendToDatabase sendToDatabase;
     private LatLng initialPosition;
+    private List<Geofence> listGeofences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofenceHelper = new GeofenceHelper(this);
         sendToDatabase = new SendToDatabase(this);
+        listGeofences = new ArrayList<Geofence>();
 
         //establecemos un false en la BD al iniciar la APP. Lo comentamos para probar cosas
         //sendToDatabase.addItemDBWithoutNotification();
@@ -68,19 +75,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         //Conseguimos la ubicación del usuario y pedimos permisos
         enableUserLocation();
-
-        //Cogemos el bundle
-        Bundle bundle = getIntent().getExtras();
-
-        initialPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
-
-        //Añadimos la geofence al mapa
-        tryAddingGeofence(initialPosition);
-
+        //Cogemos los datos del bundle y añadimos la geofence
+        pickLocationAndAddGeofence();
     }
 
     private void onCheckGPS(){
@@ -153,6 +151,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    private void pickLocationAndAddGeofence(){
+        //Cogemos el bundle
+        Bundle bundle = getIntent().getExtras();
+
+        initialPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
+
+        //Añadimos la geofence al mapa
+        tryAddingGeofence(initialPosition);
+    }
 
     private void tryAddingGeofence(LatLng latlng){
         mMap.clear();

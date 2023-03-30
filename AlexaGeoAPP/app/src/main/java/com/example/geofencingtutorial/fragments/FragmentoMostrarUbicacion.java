@@ -20,9 +20,12 @@ import androidx.navigation.Navigation;
 
 import com.example.geofencingtutorial.MapsActivity;
 import com.example.geofencingtutorial.R;
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,6 +38,8 @@ public class FragmentoMostrarUbicacion extends Fragment {
     private Intent intentMaps;
 
     private Double latitude, longitude;
+    private GeofencingClient geofencingClient;
+    private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
 
     public Double getLatitude() {
         return latitude;
@@ -57,6 +62,7 @@ public class FragmentoMostrarUbicacion extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmento_mostrar_ubicacion, container, false);
         geocoder = new Geocoder(getContext(), Locale.getDefault());
+        geofencingClient = LocationServices.getGeofencingClient(getActivity());
         direcciones = new ArrayList<>();
         intentMaps = new Intent(getActivity(), MapsActivity.class);
         mostrarDireccion = view.findViewById(R.id.direccion);
@@ -68,8 +74,6 @@ public class FragmentoMostrarUbicacion extends Fragment {
 
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                //Double latitude = bundle.getDouble("latitude");
-                //Double longitude = bundle.getDouble("longitude");
                 setLatitude(bundle.getDouble("latitude"));
                 setLongitude(bundle.getDouble("longitude"));
                 getCompleteAddress(getLongitude(), getLatitude(), mostrarDireccion);
@@ -94,6 +98,12 @@ public class FragmentoMostrarUbicacion extends Fragment {
             }
         });
         return view.getRootView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        geofencingClient.removeGeofences(Collections.singletonList(GEOFENCE_ID));
     }
 
     private void getCompleteAddress(Double longitude, Double latitude, TextView textView) {
