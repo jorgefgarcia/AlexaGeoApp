@@ -1,26 +1,19 @@
 package com.example.geofencingtutorial;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.dynamodbv2.document.Table;
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class DatabaseAccess{
 
-    private final String COGNITO_IDENTITY_POOL_ID = "us-east-1:3bf65834-1787-42af-a75d-7269e77ea4ca";
-    private final Regions COGNITO_IDENTITY_POOL_REGION =  Regions.US_EAST_1;
-    private final String DYNAMODB_TABLE = "tablaTutorial";
     private Context context;
     private CognitoCachingCredentialsProvider credentialsProvider;
     private AmazonDynamoDBClient dbClient;

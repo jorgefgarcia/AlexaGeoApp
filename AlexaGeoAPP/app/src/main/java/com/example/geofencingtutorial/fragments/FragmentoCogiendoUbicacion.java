@@ -19,14 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import com.example.geofencingtutorial.MainActivity;
 import com.example.geofencingtutorial.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -34,10 +31,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import java.util.ArrayList;
+import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class FragmentoCogiendoUbicacion extends Fragment /*implements LocationListener*/{
 
@@ -48,7 +42,6 @@ public class FragmentoCogiendoUbicacion extends Fragment /*implements LocationLi
     private LocationManager lm;
     private Bundle bundle;
     private FusedLocationProviderClient mFusedLocationClient;
-    private int PERMISSION_ID = 44;
 
     @Nullable
     @Override

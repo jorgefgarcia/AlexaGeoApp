@@ -8,20 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import com.example.geofencingtutorial.GeofenceHelper;
 import com.example.geofencingtutorial.R;
+import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class FragmentoPrimario extends Fragment {
-    private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
-    private final int BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002;
+
     private GeofenceHelper geofenceHelper;
     @Nullable
     @Override

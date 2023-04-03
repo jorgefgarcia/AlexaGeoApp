@@ -4,30 +4,26 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
-
 import com.example.geofencingtutorial.MapsActivity;
 import com.example.geofencingtutorial.R;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.LocationServices;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class FragmentoMostrarUbicacion extends Fragment {
     private static final String TAG = "FragmentoMostrarUbicaci";
@@ -36,10 +32,8 @@ public class FragmentoMostrarUbicacion extends Fragment {
     private TextView mostrarDireccion;
     private Button yesButton, noButton;
     private Intent intentMaps;
-
     private Double latitude, longitude;
     private GeofencingClient geofencingClient;
-    private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
 
     public Double getLatitude() {
         return latitude;

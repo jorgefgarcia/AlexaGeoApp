@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -15,7 +13,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -29,20 +26,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
-    private float geofenceRadius = 100;
-    private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
-    private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
-    private final int BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002;
     private static final String TAG = "MapsActivity";
     private SendToDatabase sendToDatabase;
     private LatLng initialPosition;
@@ -165,8 +157,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void tryAddingGeofence(LatLng latlng){
         mMap.clear();
         addMarker(latlng);
-        addCircle(latlng, geofenceRadius);
-        addGeofence(latlng, geofenceRadius);
+        addCircle(latlng, GEOFENCE_RADIUS);
+        addGeofence(latlng, GEOFENCE_RADIUS);
     }
 
     private void addGeofence(LatLng latLng, float radius) {
