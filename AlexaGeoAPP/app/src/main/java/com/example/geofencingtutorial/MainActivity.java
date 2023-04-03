@@ -1,47 +1,21 @@
 package com.example.geofencingtutorial;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private static Context myContext;
+    public static Context getMyContext(){
+        return myContext;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myContext = getApplicationContext();
     }
-
-
-    /*Intent mainClassIntent = new Intent(this, MapsActivity.class);
-        Bundle bundle = new Bundle();
-
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        findViewById(R.id.GeofenceButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bundle.putDouble("latitude",location.getLatitude());
-                bundle.putDouble("longitude", location.getLongitude());
-                //vinculamos el bundle con el intent
-                mainClassIntent.putExtras(bundle);
-                startActivity(mainClassIntent);
-            }
-        });*/
-
 }
