@@ -6,33 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FragmentoMostrarUbicacion">
 
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="383dp"
-        android:layout_height="63dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:text="@string/mensaje_inicio_mostrar_ubicacion"
         android:textColor="@color/purple_700"
         android:textSize="24dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintVertical_bias="0.084" />
 
-
+    <!-- <a href="https://storyset.com/question">Question illustrations by Storyset</a> -->
 
     <LinearLayout
-        android:layout_width="385dp"
-        android:layout_height="57dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186">
+        app:layout_constraintVertical_bias="0.212">
 
         <TextView
             android:id="@+id/textView2"
@@ -61,7 +61,6 @@
             android:textColor="@color/purple_700" />
     </LinearLayout>
 
-    <!-- <a href="https://storyset.com/question">Question illustrations by Storyset</a> -->
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/YesOrNoGif"
         android:layout_width="215dp"
