@@ -18,13 +18,13 @@ import com.example.geofencingtutorial.GeofenceHelper;
 import com.example.geofencingtutorial.R;
 import static com.example.geofencingtutorial.constantes.Constantes.*;
 
-public class FragmentoPrimario extends Fragment {
+public class FragmentoPermisos extends Fragment {
 
     private GeofenceHelper geofenceHelper;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmento_primario, container, false);
+        View view = inflater.inflate(R.layout.fragmento_permisos, container, false);
         geofenceHelper = new GeofenceHelper(getContext());
 
         //Conseguimos la ubicación del usuario y pedimos permisos

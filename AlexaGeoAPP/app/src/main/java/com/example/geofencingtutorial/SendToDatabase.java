@@ -20,7 +20,7 @@ public class SendToDatabase{
         NotificationHelper notificationHelper = new NotificationHelper(context);
         switch (transitionTypes) {
             case Geofence.GEOFENCE_TRANSITION_ENTER:
-                notificationHelper.sendHighPriorityNotification("Bienvenido, perímetro de seguridad establecido en rojo.", "Peticiones activadas.", MapsActivity.class);
+                notificationHelper.sendHighPriorityNotification("Bienvenido!", "Perímetro de seguridad establecido en rojo. Peticiones activadas.", MapsActivity.class);
                 serviceIntent.putExtra("estado",true);
                 context.startService(serviceIntent);
                 break;

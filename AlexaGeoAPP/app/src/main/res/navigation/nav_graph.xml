@@ -11,13 +11,13 @@
         tools:layout="@layout/fragmento_inicio" >
         <action
             android:id="@+id/action_fragmentoInicio_to_fragmentoPrimario"
-            app:destination="@id/fragmentoPrimario" />
+            app:destination="@id/fragmentoPermisos" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentoPrimario"
-        android:name="com.example.geofencingtutorial.fragments.FragmentoPrimario"
-        android:label="fragmento_primario"
-        tools:layout="@layout/fragmento_primario" >
+        android:id="@+id/fragmentoPermisos"
+        android:name="com.example.geofencingtutorial.fragments.FragmentoPermisos"
+        android:label="fragmento_permisos"
+        tools:layout="@layout/fragmento_permisos">
         <action
             android:id="@+id/action_fragmentoPrimario_to_fragmentoCogiendoUbicacion"
             app:destination="@id/fragmentoCogiendoUbicacion" />
@@ -36,7 +36,7 @@
         android:label="FragmentoMostrarUbicacion" >
         <action
             android:id="@+id/action_fragmentoMostrarUbicacion_to_fragmentoPrimario"
-            app:destination="@id/fragmentoPrimario" />
+            app:destination="@id/fragmentoPermisos" />
         <action
             android:id="@+id/action_fragmentoMostrarUbicacion_to_mapsActivity"
             app:destination="@id/mapsActivity" />
