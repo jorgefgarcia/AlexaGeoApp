@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.example.geofencingtutorial.constantes.Constantes.*;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
     private GoogleMap mMap;
     private GeofencingClient geofencingClient;
@@ -38,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = "MapsActivity";
     private SendToDatabase sendToDatabase;
     private LatLng initialPosition;
-    private List<Geofence> listGeofences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofenceHelper = new GeofenceHelper(this);
         sendToDatabase = new SendToDatabase(this);
-        listGeofences = new ArrayList<Geofence>();
-
-        //establecemos un false en la BD al iniciar la APP. Lo comentamos para probar cosas
-        //sendToDatabase.addItemDBWithoutNotification();
 
         //añadimos el listener para el GPSCheck
         onCheckGPS();
@@ -71,6 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         enableUserLocation();
         //Cogemos los datos del bundle y añadimos la geofence
         pickLocationAndAddGeofence();
+        //Añadimos la posibilidad al usuario de añadir la geofence con el dedo
+        mMap.setOnMapLongClickListener(this);
     }
 
     private void onCheckGPS(){
@@ -96,6 +95,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_ACCESS_REQUEST_CODE);
             }
+        }
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            //We need background permission
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                tryAddingGeofence(latLng);
+            } else {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
+                    //We show a dialog and ask for permission
+                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_ACCESS_REQUEST_CODE);
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_ACCESS_REQUEST_CODE);
+                }
+            }
+
+        } else {
+            tryAddingGeofence(latLng);
         }
     }
 
@@ -156,6 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void tryAddingGeofence(LatLng latlng){
         mMap.clear();
+        sendToDatabase.addItemDBWithoutNotification();
         addMarker(latlng);
         addCircle(latlng, GEOFENCE_RADIUS);
         addGeofence(latlng, GEOFENCE_RADIUS);
