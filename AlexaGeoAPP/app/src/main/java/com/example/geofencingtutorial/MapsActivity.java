@@ -103,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (Build.VERSION.SDK_INT >= 29) {
             //We need background permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                tryAddingGeofence(latLng);
+                tryAddingGeofence(latLng, true);
             } else {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                     //We show a dialog and ask for permission
@@ -114,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         } else {
-            tryAddingGeofence(latLng);
+            tryAddingGeofence(latLng, true);
         }
     }
 
@@ -170,15 +170,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
 
         //Añadimos la geofence al mapa
-        tryAddingGeofence(initialPosition);
+        tryAddingGeofence(initialPosition, false);
     }
 
-    private void tryAddingGeofence(LatLng latlng){
+    private void tryAddingGeofence(LatLng latlng, boolean withfinger){
         mMap.clear();
-        sendToDatabase.addItemDBWithoutNotification();
+        if (withfinger){
+            sendToDatabase.addItemDBWithoutNotification();
+        }
         addMarker(latlng);
         addCircle(latlng, GEOFENCE_RADIUS);
         addGeofence(latlng, GEOFENCE_RADIUS);
+
     }
 
     private void addGeofence(LatLng latLng, float radius) {
