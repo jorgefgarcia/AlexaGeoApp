@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class FragmentoMostrarUbicacion extends Fragment {
     private Intent intentMaps;
     private Double latitude, longitude;
     private GeofencingClient geofencingClient;
+    private Handler handler;
 
     public Double getLatitude() {
         return latitude;
@@ -101,24 +103,25 @@ public class FragmentoMostrarUbicacion extends Fragment {
     }
 
     private void getCompleteAddress(Double longitude, Double latitude, TextView textView) {
-        Thread thread = new Thread() {
+        handler = new Handler();
+
+        new Thread(new Runnable() {
+            //Cambiamos las coordenadas a dirección con un thread.
             @Override
             public void run() {
                 try {
                     direcciones = geocoder.getFromLocation(latitude, longitude, 1);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText(direcciones.get(0).getAddressLine(0));
-                        }
-                    });
-
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                //Modificamos la UI con el main thread.
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.setText(direcciones.get(0).getAddressLine(0));
+                    }
+                });
             }
-        };
-        thread.start();
-        thread.interrupt();
+        }).start();
     }
 }
