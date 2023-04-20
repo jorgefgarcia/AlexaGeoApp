@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_fragmentoPrimario_to_fragmentoCogiendoUbicacion"
             app:destination="@id/fragmentoCogiendoUbicacion" />
+        <action
+            android:id="@+id/action_fragmentoPermisos_to_fragmentoNoHayPermisos"
+            app:destination="@id/fragmentoNoHayPermisos" />
     </fragment>
     <fragment
         android:id="@+id/fragmentoCogiendoUbicacion"
@@ -46,4 +49,12 @@
         android:name="com.example.geofencingtutorial.MapsActivity"
         android:label="activity_maps"
         tools:layout="@layout/activity_maps" />
+    <fragment
+        android:id="@+id/fragmentoNoHayPermisos"
+        android:name="com.example.geofencingtutorial.fragments.FragmentoNoHayPermisos"
+        android:label="FragmentoNoHayPermisos" >
+        <action
+            android:id="@+id/action_fragmentoNoHayPermisos_to_fragmentoPermisos"
+            app:destination="@id/fragmentoPermisos" />
+    </fragment>
 </navigation>

@@ -6,7 +6,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="Atras">Atrás</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -19,7 +19,7 @@
 
     <!-- Fragmento primario -->
     <string name="mensaje_inicio_primario">Para empezar, colócate cerca del altavoz inteligente</string>
-    <string name="mensaje_primario">Necesitamos permisos de ubicación del dispositivo para configurarlo todo correctamente y establecer un perímetro de seguridad.¿Estás listo?</string>
+    <string name="mensaje_primario">Necesitamos permisos de ubicación del dispositivo y conexión a internet para configurarlo todo correctamente y establecer un perímetro de seguridad.¿Estás listo?</string>
     <string name="mensaje_boton_primario">¡Listo!</string>
 
     <!-- Fragmento cogiendo ubicación -->
@@ -30,4 +30,9 @@
     <string name="mensaje_inicio_mostrar_ubicacion" > Hemos encontrado esta ubicación </string>
     <string name="mensaje_dirección_encontranda">La dirección encontrada es la siguiente: </string>
     <string name="mensaje_correcto_mostrar_ubicacion"> ¿Es correcta?</string>
+
+    <!-- Fragmento no hay permisos -->
+    <string name="mensaje_inicio_no_hay_permisos"> Necesitamos permisos de ubicación </string>
+    <string name="mensaje_recuperar_permisos"> ¡Ups! No tenemos permisos de ubicación. Por favor, vuelva atrás para establecerlos.</string>
+
 </resources>

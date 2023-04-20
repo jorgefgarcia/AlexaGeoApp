@@ -20,7 +20,9 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.OnMapsSdkInitializedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -59,7 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //añadimos el listener para el GPSCheck
         onCheckGPS();
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
