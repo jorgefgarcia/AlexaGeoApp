@@ -17,4 +17,10 @@ public final class Constantes {
     public static final String COGNITO_IDENTITY_POOL_ID = "us-east-1:3bf65834-1787-42af-a75d-7269e77ea4ca";
     public static final Regions COGNITO_IDENTITY_POOL_REGION =  Regions.US_EAST_1;
     public static final String DYNAMODB_TABLE = "tablaTutorial";
+
+    //Notificaciones
+    public static final String TITLE_TRANSITION_ENTER = "Bienvenido!";
+    public static final String BODY_TRANSITION_ENTER = "Perímetro de seguridad establecido en rojo. Peticiones activadas.";
+    public static final String TITLE_TRANSITION_EXIT = "Saliendo del perímetro de seguridad";
+    public static final String BODY_TRANSITION_EXIT = "Peticiones desactivadas.";
 }
