@@ -13,9 +13,7 @@ const LaunchRequestHandler = {
 const GetWelcomeHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && (handlerInput.requestEnvelope.request.intent.name === 'getWelcome'
-            || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent'   // <-- necessary so the user gets another fact when it says 'yes' when asked if they want another one
-            || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent');// <-- necessary so the gets another fact when it says 'next' (you might want to extend the utterances of this intent with e.g. 'next fact' and similar)
+            && handlerInput.requestEnvelope.request.intent.name === 'getWelcome';
     },
     async handle(handlerInput) {
         return operations.countItem()
@@ -26,7 +24,7 @@ const GetWelcomeHandler = {
                         .speak(speechText)
                         .getResponse();
             }else{
-                var speechText = `Bienvenido a la Skill de AlexaGeoApp. Para verificar si podemos procesar peticiones diga: estoy autenticado.`
+                var speechText = `Bienvenido a la Skill de AlexaGeoApp. Para verificar si podemos procesar peticiones diga: estoy autenticado. Si la autenticación es satisfactoria puede pedirme una curiosidad.`
                 return handlerInput.responseBuilder
                         .speak(speechText)
                         .reprompt(speechText)
@@ -34,7 +32,7 @@ const GetWelcomeHandler = {
             }
         })
         .catch((err)=>{
-            const speechText = "hubo un error al coger el dato";
+            const speechText = "Hubo un error al coger el dato";
             return handlerInput.responseBuilder
             .speak(speechText)
             .getResponse();
@@ -45,13 +43,13 @@ const GetWelcomeHandler = {
 const GetDataHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type == 'IntentRequest'
-        && (handlerInput.requestEnvelope.request.intent.name == 'getData');
+        && handlerInput.requestEnvelope.request.intent.name == 'getData';
     },
     async handle(handlerInput){
         return operations.getData()
         .then((data) => {
             if(`${data}` == "true"){
-                var speechText = `Actualmente está autenticado podemos resolver las peticiones`
+                var speechText = `Actualmente está autenticado podemos resolver las peticiones. Si quiere comprobarlo diga: dime una curiosidad`
                 return handlerInput.responseBuilder
                 .speak(speechText)
                 .reprompt(speechText)
@@ -62,19 +60,47 @@ const GetDataHandler = {
                 .speak(speechText)
                 .getResponse();
             }
-            /*return handlerInput.responseBuilder
-            .speak(speechText)
-            .reprompt(speechText)
-            .getResponse();*/
         })
         .catch((err)=>{
-            const speechText = "hubo un error al coger el dato";
+            const speechText = "Hubo un error al coger el dato";
             return handlerInput.responseBuilder
             .speak(speechText)
             .getResponse();
         })
     }
-}
+};
+
+const GetCuriosityHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type == 'IntentRequest'
+        && (handlerInput.requestEnvelope.request.intent.name == 'getCuriosity'
+            || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent'   // <-- Cogemos otra curiosidad si el usuario responde si a nuestras preguntas.
+            || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent');// <-- Necesario para coger otra curiosidad si el usuario dice siguiente curiosidad o similar.
+    },
+    async handle(handlerInput){
+        return operations.getData()
+        .then((data) => {
+            if(`${data}` == "true"){
+                var speechText = getRandomItem(CURIOSIDADES);
+                return handlerInput.responseBuilder
+                .speak(speechText + getRandomItem(PREGUNTAS))
+                .reprompt(getRandomItem(PREGUNTAS))
+                .getResponse();
+            }else{
+                var speechText = `Error en la autenticación, actualmente no está autenticado. No voy a resolver su petición`
+                return handlerInput.responseBuilder
+                .speak(speechText)
+                .getResponse();
+            }
+        })
+        .catch((err)=>{
+            const speechText = "Hubo un error al coger el dato";
+            return handlerInput.responseBuilder
+            .speak(speechText)
+            .getResponse();
+        })
+    }
+};
 
 const ErrorHandler = {
     canHandle() {
@@ -91,11 +117,39 @@ const ErrorHandler = {
     }
 };
 
+function getRandomItem(array){
+    return array[Math.floor(Math.random()*array.length)]
+}
+
+const CURIOSIDADES = [
+'El 95% de los ataques cibernéticos se deben a errores humanos.',
+'Un ataque de phising ocurre cada 30 segundos.',
+'Los hackers tardan en promedio 191 días en detectar una violación de seguridad.',
+'El ransomware es el tipo de ataque cibernético más costoso, con un costo promedio de recuperación de 1.85 millones de dólares.',
+'El robo de los datos personales es una de las principales preocupaciones de los usuarios en la era digital.',
+'Las contraseñas débiles son la principal causa de violaciones de seguridad.',
+'La ingeniería social es una técnica comúnmente utilizada por los hackers para engañar a las personas y obtener información confidencial.',
+'La inteligencia artificial y el aprendizaje automático son cada vez más utilizados para mejorar la seguridad en línea.'
+];
+
+const PREGUNTAS = [
+'Quieres otra?',
+'Quieres otra curiosidad?',
+'Te gustaría saber más?',
+'Quieres saber la siguiente?',
+'Quieres la siguiente curiosidad?',
+'Te digo otra?',
+'Te digo la siguiente?',
+'Te digo otra curiosidad?',
+'Te digo la siguiente curiosidad?'
+];
+
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         GetWelcomeHandler,
-        GetDataHandler)
+        GetDataHandler,
+        GetCuriosityHandler)
     .addErrorHandlers(
         ErrorHandler)
     .withApiClient(new Alexa.DefaultApiClient())
