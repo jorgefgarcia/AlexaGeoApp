@@ -9,7 +9,10 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
 import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class DatabaseAccess{
@@ -20,7 +23,8 @@ public class DatabaseAccess{
     private Table dbTable;
 
     private static volatile DatabaseAccess instance;
-
+    private Calendar calendar;
+    private static final String TAG = "DatabaseAccess";
 
     private DatabaseAccess(Context context){
         this.context=context;
@@ -43,9 +47,11 @@ public class DatabaseAccess{
         int  customer_id= 100;
 
         //UTILIZAMOS LA FECHA PARA ALMACENARLA EN DYNAMOBD
+        calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String currentDateString = dateFormat.format(new Date());
         Long currentDate = Long.parseLong(currentDateString);
+        Log.d(TAG, "addUser: " + currentDate);
 
         userContact.put("id",customer_id);
         userContact.put("date", currentDate);
