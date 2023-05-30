@@ -2,11 +2,10 @@ var AWS = require("aws-sdk");
 var moment = require("moment-timezone");
 
 AWS.config.update({region: 'us-east-1'});
-//var ddb = new AWS.DynamoDB.DocumentClient();
 var ddb = new AWS.DynamoDB({apiVersion: 'lasttet'});
 
 //ventana de validez
-var windowTime = 500 //500 son 5 minutos en esta conversión "YYYYMMDDHHmmss"
+var windowTime = 1700 //1700 son 17 minutos en esta conversión "YYYYMMDDHHmmss"
 
 var operations = function () { };
 
