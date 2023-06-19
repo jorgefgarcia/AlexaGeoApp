@@ -11,8 +11,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-
 import static com.example.geofencingtutorial.constantes.Constantes.*;
 
 public class DatabaseAccess{
@@ -34,7 +32,7 @@ public class DatabaseAccess{
         dbTable = Table.loadTable(dbClient, DYNAMODB_TABLE);
     }
 
-    //accedemos a una única instancia siempre
+    //Accedemos a una única instancia siempre
     public static synchronized DatabaseAccess getInstance(Context context){
         if(instance == null){
             instance = new DatabaseAccess(context);
@@ -46,7 +44,7 @@ public class DatabaseAccess{
         boolean check = false;
         int  customer_id= 100;
 
-        //UTILIZAMOS LA FECHA PARA ALMACENARLA EN DYNAMOBD
+        //Utilizamos la fecha para almacenarla en DynamoDB
         calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String currentDateString = dateFormat.format(new Date());

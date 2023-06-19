@@ -126,12 +126,10 @@ public class FragmentoCogiendoUbicacion extends Fragment /*implements LocationLi
 
     // Miramos los permisos
     private boolean checkPermissions() {
-        return ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.getMyContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-
-        // If we want background location
-        // on Android 10.0 and higher,
-        // use:
-        // ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
+        return ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(MainActivity.getMyContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     // Pedimos los permisos
@@ -141,13 +139,12 @@ public class FragmentoCogiendoUbicacion extends Fragment /*implements LocationLi
                 Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
     }
 
-    // Métood para mirar si la localización está activada
+    // Métoodo para mirar si la localización está activada
     private boolean isLocationEnabled() {
         LocationManager locationManager = (LocationManager) MainActivity.getMyContext().getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    // Si está bien
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -161,7 +158,7 @@ public class FragmentoCogiendoUbicacion extends Fragment /*implements LocationLi
 
     //Método para enviar los datos al siguiente fragmento
     private void sendBundle(Double latitude, Double longitude){
-        //Añadimos los datos al bundle y lo enviamos
+        //Añadimos los datos al bundle y los enviamos
         bundle.putDouble("latitude", latitude);
         bundle.putDouble("longitude", longitude);
         Log.d(TAG, "onComplete: "+ latitude + " " + longitude);
